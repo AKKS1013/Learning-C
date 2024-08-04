@@ -2,8 +2,17 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define RESET "\x1B[0m"
+
 bool ask(char msg[]) {
-  printf(msg);
+  printf("%s %s %s", RED, msg, RESET);
 
   bool done = true;
 
@@ -22,16 +31,16 @@ bool ask(char msg[]) {
     }
     else {
       done = true;
-      printf("Invalid response. Please try again\n");
+      printf(YEL "Invalid response. Please try again\n" RESET);
     }
-    printf("What will you do (a or b): ");
+    printf(RED "What will you do (a or b): " RESET);
   }
 }
 
 int main() {
   char name[] = "";
 
-  printf("Welcome to the [Adventure Game Title]\n");
+  printf(BLU "Welcome to the [Adventure Game Title]\n" RESET);
   printf("-------------------------------------\n");
   printf("\n");
   printf("Long, long ago there was a land, far far away\n");
