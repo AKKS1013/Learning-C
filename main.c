@@ -59,7 +59,7 @@ int main() {
            "your body. Suddenly, you see visions of a distant planet, filled "
            "with towering, crystalline structures.\n");
     switch (ask("Will you: \x1B[36ma - Try to communicate to the visions or b "
-                "- Ignore the visions and focus on the crystal]")) {
+                "- Ignore the visions and focus on the crystal")) {
     case 1:
       printf("As you focus on the visions, you feel a strange tingling "
              "sensation in your mind. You try to speak mentally, and to your "
@@ -68,14 +68,13 @@ int main() {
              "you feel a sense of peace and understanding as you listen.\n");
       printf("The voice in your head continues to speak, and you gradually "
              "begin to understand the language. It's a language of pure "
-             "thought, a way of communicating without words. The voice tells "
+             "thought, a way of communicating without words. You learn about "
+             "ancient civilizations, powerful "
+             "beings, and the true nature of reality. The voice tells "
              "you that you have been chosen to receive a great gift, a power "
-             "that can change the world.\n");
-      printf("The voice in your head continues to speak, revealing the secrets "
-             "of the universe. You learn about ancient civilizations, powerful "
-             "beings, and the true nature of reality. The voice tells you that "
-             "you are destined to play a crucial role in the future of the "
-             "world.\n");
+             "that can change the world...\n");
+      return 0;
+
     case 2:
       printf(
           "As you focus on the crystal, you feel a surge of power that courses "
@@ -84,6 +83,7 @@ int main() {
           "the elements, manipulate time, and even travel through dimensions. "
           "However, with great power comes great responsibilities and you "
           "realize you must use your powers wisely.\n");
+      return 0;
     }
 
   case 2:
@@ -101,6 +101,17 @@ int main() {
              "feel like you're being ripped apart.\n");
       printf("You slowly lose consciousness as the pain overwhelms you, and "
              "everything fades to black.\n");
+      return 0;
+
+    case 2:
+      printf("You follow the pull, drawn irresistibly towards the nearest body "
+             "of water. As you approach the water, you feel a sense of peace "
+             "and tranquility. You step into the water, and it feels like "
+             "you're merging with the ocean itself, becoming one with the "
+             "water. You feel a sense of power and connection to all living "
+             "things. You realize that you are a guardian of the planet, "
+             "tasked with protecting the oceans and all life within them.\n");
+      return 0;
     }
 
   case 3:
@@ -109,5 +120,31 @@ int main() {
     printf("The police arrive and take the crystal away for examination. They "
            "thank you for reporting the suspicious package. However, you can't "
            "shake the feeling that something is amiss.\n");
+    switch (ask(
+        "Will you: \x1b[36ma - Forget about the crystal and go on with your "
+        "life or b - Try to find out more about the crystal and its origins")) {
+    case 1:
+      printf("You try to put the incident behind you, but you can't shake the "
+             "feeling that something is missing. You wonder what would have "
+             "happened if you had kept the crystal.\n");
+      return 0;
+
+    case 2:
+      printf("You decide to do some research, trying to find out more about "
+             "the crystal and its origins. You discover that the crystal is a "
+             "rare and powerful artifact, sought after by many. You realize "
+             "that you may be in danger, but you're determined to learn more "
+             "about the crystal and its secrets.\n");
+      printf(
+          "Your research leads you to a secret society that has been guarding "
+          "the crystal for centuries. They offer you a chance to join them, to "
+          "learn more about the crystal and its power. You agree, and you "
+          "embark on a journey that will change your life forever.\n");
+      printf("The secret society reveals that the crystal is one of a set of "
+             "powerful artifacts, each capable of granting incredible "
+             "abilities. They tell you that you must find the other artifacts "
+             "before they fall into the wrong hands...\n");
+      return 0;
+    }
   }
 }
