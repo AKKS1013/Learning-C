@@ -58,6 +58,33 @@ int main() {
            "otherworldly energy. You feel a strange warmth spreading through "
            "your body. Suddenly, you see visions of a distant planet, filled "
            "with towering, crystalline structures.\n");
+    switch (ask("Will you: \x1B[36ma - Try to communicate to the visions or b "
+                "- Ignore the visions and focus on the crystal]")) {
+    case 1:
+      printf("As you focus on the visions, you feel a strange tingling "
+             "sensation in your mind. You try to speak mentally, and to your "
+             "surprise, you hear a voice in your head. It's a deep, resonant "
+             "voice that speaks in a language you don't understand. However, "
+             "you feel a sense of peace and understanding as you listen.\n");
+      printf("The voice in your head continues to speak, and you gradually "
+             "begin to understand the language. It's a language of pure "
+             "thought, a way of communicating without words. The voice tells "
+             "you that you have been chosen to receive a great gift, a power "
+             "that can change the world.\n");
+      printf("The voice in your head continues to speak, revealing the secrets "
+             "of the universe. You learn about ancient civilizations, powerful "
+             "beings, and the true nature of reality. The voice tells you that "
+             "you are destined to play a crucial role in the future of the "
+             "world.\n");
+    case 2:
+      printf(
+          "As you focus on the crystal, you feel a surge of power that courses "
+          "through your body. You realize that the crystal is a powerful "
+          "artifact, capable of granting incredible abilities. You can control "
+          "the elements, manipulate time, and even travel through dimensions. "
+          "However, with great power comes great responsibilities and you "
+          "realize you must use your powers wisely.\n");
+    }
 
   case 2:
     printf("You decide to wear the crystal as a necklace.\n");
@@ -65,6 +92,16 @@ int main() {
            "surge of power. You can sense the world around you in a new way, "
            "like you're connected to everything. You also feel a strange pull "
            "towards the nearest body of water.\n");
+    switch (ask("Will you: \x1b[36ma - Resist the pull and stay where you are "
+                "or b - Follow the pull and go to the water")) {
+    case 1:
+      printf("You fight against the pull towards the water, but it's stronger "
+             "than you. You feel a sense of panic as you realize you have no "
+             "control over your body. The pull becomes so intense that you "
+             "feel like you're being ripped apart.\n");
+      printf("You slowly lose consciousness as the pain overwhelms you, and "
+             "everything fades to black.\n");
+    }
 
   case 3:
     printf(
