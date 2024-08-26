@@ -20,7 +20,7 @@ char *pl = "+";
 char *mi = "-";
 char *mu = "*";
 char *di = "/";
-int *ans = &(int){0};
+float *ans = &(float){0};
 char lab[32] = {0};
 char ans2[32] = {0};
 bool first = false;
@@ -36,11 +36,14 @@ static void add_char(GtkWidget *widget, gpointer user_data) {
     ops[1] = *pn;
   } else if (*pn == '*') {
     ops[1] = *pn;
+    g_print(ops + 1);
   } else if (*pn == '/') {
     ops[1] = *pn;
+    g_print("/");
   } else {
     if (first == true && second == true) {
       ops[0] = *pn;
+      second = false;
     } else if (first == true) {
       ops[2] = *pn;
       second = true;
@@ -55,18 +58,18 @@ static void equals(GtkWidget *widget, gpointer user_data) {
   g_print(ops);
 
   if (ops[1] == '+') {
-    *ans = ops[0] + ops[2];
-    g_snprintf(ans2, sizeof ans, "\n%f", *ans);
-    g_print(ans2);
+    *ans =
+        ops[0] + ops[2] - 96; // This should not be working, but it does :shrug:
   } else if (ops[1] == '-') {
     *ans = ops[0] - ops[2];
   } else if (ops[1] == '*') {
     *ans = ops[0] * ops[2];
+    g_print("*");
   } else if (ops[1] == '/') {
     *ans = (float)ops[0] / ops[2];
   }
 
-  g_snprintf(lab, sizeof lab, "%f", ans);
+  g_snprintf(lab, sizeof lab, "%f", *ans);
   gtk_label_set_text(GTK_LABEL(anslabel), lab);
   g_print("\n");
   g_print(lab);
