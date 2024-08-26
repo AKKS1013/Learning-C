@@ -18,7 +18,7 @@ char *tw = "2";
 char *on = "1";
 char *pl = "+";
 char *mi = "-";
-char *mu = "*";
+char *mu = &(char){'*'};
 char *di = "/";
 float *ans = &(float){0};
 char lab[32] = {0};
@@ -30,28 +30,32 @@ GtkWidget *anslabel;
 
 static void add_char(GtkWidget *widget, gpointer user_data) {
   char *pn = user_data;
-  if (*pn == '+') {
-    ops[1] = *pn;
-  } else if (*pn == '-') {
-    ops[1] = *pn;
-  } else if (*pn == '*') {
-    ops[1] = *pn;
-    g_print(ops + 1);
-  } else if (*pn == '/') {
-    ops[1] = *pn;
-    g_print("/");
-  } else {
-    if (first == true && second == true) {
-      ops[0] = *pn;
-      second = false;
-    } else if (first == true) {
-      ops[2] = *pn;
-      second = true;
+  g_print(&pn[0]);
+  do {
+    if (*pn == '+') {
+      ops[1] = *pn;
+    } else if (*pn == '-') {
+      ops[1] = *pn;
+    } else if (*pn == '*') {
+      ops[1] = *pn;
+      /*g_print(ops + 1);*/
+      break;
+    } else if (*pn == '/') {
+      ops[1] = *pn;
+      /*g_print(ops + 1);*/
     } else {
-      ops[0] = *pn;
-      first = true;
+      if (first == true && second == true) {
+        ops[0] = *pn;
+        second = false;
+      } else if (first == true) {
+        ops[2] = *pn;
+        second = true;
+      } else {
+        ops[0] = *pn;
+        first = true;
+      }
     }
-  }
+  } while (0);
 }
 
 static void equals(GtkWidget *widget, gpointer user_data) {
