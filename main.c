@@ -20,8 +20,7 @@ char *pl = "+";
 char *mi = "-";
 char *mu = "*";
 char *di = "/";
-volatile unsigned int *te = (volatile unsigned int *)0x5dede3e5d0dd;
-float ans = 0;
+int *ans = &(int){0};
 char lab[32] = {0};
 char ans2[32] = {0};
 bool first = false;
@@ -40,9 +39,9 @@ static void add_char(GtkWidget *widget, gpointer user_data) {
   } else if (*pn == '/') {
     ops[1] = *pn;
   } else {
-    if (first && second) {
+    if (first == true && second == true) {
       ops[0] = *pn;
-    } else if (first) {
+    } else if (first == true) {
       ops[2] = *pn;
       second = true;
     } else {
@@ -56,18 +55,18 @@ static void equals(GtkWidget *widget, gpointer user_data) {
   g_print(ops);
 
   if (ops[1] == '+') {
-    ans = ops[0] + ops[2];
-    g_snprintf(ans2, sizeof ans, "\n%f", ans);
+    *ans = ops[0] + ops[2];
+    g_snprintf(ans2, sizeof ans, "\n%f", *ans);
     g_print(ans2);
   } else if (ops[1] == '-') {
-    ans = ops[0] - ops[2];
+    *ans = ops[0] - ops[2];
   } else if (ops[1] == '*') {
-    ans = ops[0] * ops[2];
+    *ans = ops[0] * ops[2];
   } else if (ops[1] == '/') {
-    ans = (float)ops[0] / ops[2];
-  } else
+    *ans = (float)ops[0] / ops[2];
+  }
 
-    g_snprintf(lab, sizeof lab, "%f", ans);
+  g_snprintf(lab, sizeof lab, "%f", ans);
   gtk_label_set_text(GTK_LABEL(anslabel), lab);
   g_print("\n");
   g_print(lab);
