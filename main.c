@@ -23,7 +23,7 @@ char *mu = "*";
 char *di = "/";
 float *ans = &(float){0};
 char lab[32] = {0};
-char ans2[32] = {0};
+double ans2 = 0;
 bool first = false;
 bool second = false;
 
@@ -51,27 +51,24 @@ static void add_char(GtkWidget *widget, gpointer user_data) {
       first = true;
     }
   }
+  g_snprintf(lab, sizeof lab, "%s", ops);
+  gtk_label_set_text(GTK_LABEL(anslabel), lab);
 }
 
 static void equals(GtkWidget *widget, gpointer user_data) {
-  g_print(ops);
-
   if (ops[1] == '+') {
-    *ans =
-        ops[0] + ops[2] - 96; // This should not be working, but it does :shrug:
+    *ans = (ops[0] - '0') + (ops[2] - '0');
   } else if (ops[1] == '-') {
-    *ans = ops[0] - ops[2];
+    *ans = (ops[0] - '0') - (ops[2] - '0');
   } else if (ops[1] == '*') {
-    *ans = ops[0] * ops[2];
+    *ans = (ops[0] - '0') * (ops[2] - '0');
     g_print("*");
   } else if (ops[1] == '/') {
-    *ans = (float)ops[0] / ops[2];
+    *ans = (double)(ops[0] - '0') / (double)(ops[2] - '0');
   }
 
-  g_snprintf(lab, sizeof lab, "%f", *ans);
+  g_snprintf(lab, sizeof lab, "%lf", *ans);
   gtk_label_set_text(GTK_LABEL(anslabel), lab);
-  g_print("\n");
-  g_print(lab);
 }
 
 static void activate(GtkApplication *app, gpointer user_data) {
@@ -174,10 +171,6 @@ int main(int argc, char **argv) {
   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
   status = g_application_run(G_APPLICATION(app), argc, argv);
   g_object_unref(app);
-
-  printf("\n %c", ops[0]);
-  printf("\n %c", ops[1]);
-  printf("\n %c", ops[2]);
 
   return status;
 }
