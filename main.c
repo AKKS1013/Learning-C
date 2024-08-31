@@ -3,6 +3,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkshortcut.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <wchar.h>
 
@@ -18,7 +19,7 @@ char *tw = "2";
 char *on = "1";
 char *pl = "+";
 char *mi = "-";
-char *mu = &(char){'*'};
+char *mu = "*";
 char *di = "/";
 float *ans = &(float){0};
 char lab[32] = {0};
@@ -30,32 +31,26 @@ GtkWidget *anslabel;
 
 static void add_char(GtkWidget *widget, gpointer user_data) {
   char *pn = user_data;
-  g_print(&pn[0]);
-  do {
-    if (*pn == '+') {
-      ops[1] = *pn;
-    } else if (*pn == '-') {
-      ops[1] = *pn;
-    } else if (*pn == '*') {
-      ops[1] = *pn;
-      /*g_print(ops + 1);*/
-      break;
-    } else if (*pn == '/') {
-      ops[1] = *pn;
-      /*g_print(ops + 1);*/
+  if (*(char *)user_data == '+') {
+    ops[1] = *(char *)user_data;
+  } else if (*(char *)user_data == '-') {
+    ops[1] = *(char *)user_data;
+  } else if (*(char *)user_data == '/') {
+    ops[1] = *(char *)user_data;
+  } else if (*(char *)user_data == '*') {
+    ops[1] = *(char *)user_data;
+  } else {
+    if (first == true && second == true) {
+      ops[0] = *pn;
+      second = false;
+    } else if (first == true) {
+      ops[2] = *pn;
+      second = true;
     } else {
-      if (first == true && second == true) {
-        ops[0] = *pn;
-        second = false;
-      } else if (first == true) {
-        ops[2] = *pn;
-        second = true;
-      } else {
-        ops[0] = *pn;
-        first = true;
-      }
+      ops[0] = *pn;
+      first = true;
     }
-  } while (0);
+  }
 }
 
 static void equals(GtkWidget *widget, gpointer user_data) {
@@ -80,6 +75,7 @@ static void equals(GtkWidget *widget, gpointer user_data) {
 }
 
 static void activate(GtkApplication *app, gpointer user_data) {
+
   GtkWidget *window;
   GtkWidget *grid;
   GtkWidget *button9;
@@ -143,7 +139,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
   g_signal_connect(multibutton, "clicked", G_CALLBACK(add_char), mu);
 
   divbutton = gtk_button_new_with_label("/");
-  g_signal_connect(multibutton, "clicked", G_CALLBACK(add_char), di);
+  g_signal_connect(divbutton, "clicked", G_CALLBACK(add_char), di);
 
   eqbutton = gtk_button_new_with_label("=");
   g_signal_connect(eqbutton, "clicked", G_CALLBACK(equals), NULL);
