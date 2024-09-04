@@ -14,4 +14,18 @@ int main() {
   printf("%lf ", first);
   printf("%lf ", second);
   printf("%c", op);
+  switch (op) {
+  case '+':
+    printf("%.2lf + %.2lf = %.2lf\n", first, second, first + second);
+    break;
+  case '-':
+    printf("%.2lf - %.2lf = %.2lf\n", first, second, first - second);
+    break;
+  case '*':
+    printf("%.2lf * %.2lf = %.2lf\n", first, second, first * second);
+    break;
+  case '/':
+    printf("%.2lf / %.2lf = %.2lf\n", first, second, first / second);
+    break;
+  }
 }
