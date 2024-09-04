@@ -1,2 +1,4 @@
 # Learning-C
-Projects I'm making as I'm learning C
+Simple I made while learning C
+## Usage
+Compile using ```gcc main.c -o main``` and run using ```./main```
