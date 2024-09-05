@@ -3,8 +3,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkshortcut.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include <wchar.h>
 
 char ops[] = {0, 0, 0};
@@ -21,58 +19,48 @@ char *pl = "+";
 char *mi = "-";
 char *mu = "*";
 char *di = "/";
-float *ans = &(float){0};
+float ans = 0;
 char lab[32] = {0};
-double ans2 = 0;
-bool first = false;
-bool second = false;
 
 GtkWidget *anslabel;
 
-static void add_char(GtkWidget *widget, gpointer user_data) {
-  char *pn = user_data;
-  if (*(char *)user_data == '+') {
-    ops[1] = *(char *)user_data;
-  } else if (*(char *)user_data == '-') {
-    ops[1] = *(char *)user_data;
-  } else if (*(char *)user_data == '/') {
-    ops[1] = *(char *)user_data;
-  } else if (*(char *)user_data == '*') {
-    ops[1] = *(char *)user_data;
+static void add_char(GtkWidget *widget, gpointer data) {
+  char *pn = data;
+  if (*pn == '+') {
+    ops[1] = *pn;
+  } else if (*pn == '-') {
+    ops[1] = *pn;
+  } else if (*pn == '*') {
+    ops[1] = *pn;
+  } else if (*pn == '/') {
+    ops[1] = *pn;
   } else {
-    if (first == true && second == true) {
-      ops[0] = *pn;
-      second = false;
-    } else if (first == true) {
-      ops[2] = *pn;
-      second = true;
-    } else {
-      ops[0] = *pn;
-      first = true;
-    }
+    ops[0] = *pn;
   }
-  g_snprintf(lab, sizeof lab, "%s", ops);
-  gtk_label_set_text(GTK_LABEL(anslabel), lab);
+  g_print(&ops[0]);
+  g_print(&ops[1]);
 }
 
-static void equals(GtkWidget *widget, gpointer user_data) {
-  if (ops[1] == '+') {
-    *ans = (ops[0] - '0') + (ops[2] - '0');
-  } else if (ops[1] == '-') {
-    *ans = (ops[0] - '0') - (ops[2] - '0');
-  } else if (ops[1] == '*') {
-    *ans = (ops[0] - '0') * (ops[2] - '0');
-    g_print("*");
-  } else if (ops[1] == '/') {
-    *ans = (double)(ops[0] - '0') / (double)(ops[2] - '0');
-  }
+static void equals(GtkWidget *widget, gpointer data) {
+  g_print(ops);
 
-  g_snprintf(lab, sizeof lab, "%lf", *ans);
+  switch (ops[1]) {
+  case '+':
+    ans = ops[0] + ops[2];
+  case '-':
+    ans = ops[0] - ops[2];
+  case '*':
+    ans = ops[0] * ops[2];
+  case '/':
+    ans = (float)ops[0] / ops[2];
+  }
+  g_snprintf(lab, sizeof lab, "%f", ans);
   gtk_label_set_text(GTK_LABEL(anslabel), lab);
+  g_print("\n");
+  g_print(lab);
 }
 
 static void activate(GtkApplication *app, gpointer user_data) {
-
   GtkWidget *window;
   GtkWidget *grid;
   GtkWidget *button9;
@@ -136,7 +124,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
   g_signal_connect(multibutton, "clicked", G_CALLBACK(add_char), mu);
 
   divbutton = gtk_button_new_with_label("/");
-  g_signal_connect(divbutton, "clicked", G_CALLBACK(add_char), di);
+  g_signal_connect(multibutton, "clicked", G_CALLBACK(add_char), di);
 
   eqbutton = gtk_button_new_with_label("=");
   g_signal_connect(eqbutton, "clicked", G_CALLBACK(equals), NULL);
